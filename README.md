@@ -9,8 +9,9 @@ Some users will have to change line 111 of kilobox/Box2D/freeglut/freeglut_inter
 due to incompatability
 
 --------------------------------------------------
-/Box2D
-The script acts recursively on itself until a given number of generations are complete.
+Copy/clone contents into the kilobox directory
+
+The individual files work complementarilly. The main script acts recursively on itself until a given number of generations are complete.
 
 This example evolves the behaviour of a 64 kilobot swarm in a concentric ring world, other worlds or behaviours can easilly be substituted in. The basic usage involves:
 
