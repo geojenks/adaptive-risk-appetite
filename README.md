@@ -18,23 +18,24 @@ This example evolves the behaviour of a 64 kilobot swarm in a concentric ring wo
 
 2. run 40 instances of 
 
-./Testbed/Testbed ../kilobox/worlds/concentric\ for\ destination\ choice\ 64.world --seed {3} -g
-python3 gen_kiloscript_3.py gen_kiloscript_3 {0} {1} {2} 151
-make
+    ./Testbed/Testbed ../kilobox/worlds/concentric\ for\ destination\ choice\ 64.world --seed {3} -g
+    python3 gen_kiloscript_3.py gen_kiloscript_3 {0} {1} {2} 151
+    make
 
 where {0} - {2} are the parameters, it makes sense to have these linearly spaced over the space you expect the optimal values to lie in, and {3} can be anything really. It's a random seed, and is only present so that if a particular simulation is giving an odd result, it can be re-run. The central (score-keeping) kilobot keeps a log each time in the beacon.log file. This is used as a simple scoring mechanism and the first part of the gen_kiloscript_3 function writes the final score, along with the variables and random seed into the EA.log file (on a single line).
 To watch the simulation, remove the "g", but this slows down the simulation, and removes the automatic cut-off point, so is not advised if you are collecting data.
 
 3. Now that there are 40 bits of data to use, we can let the script automatically evolve and produce graphs etc.
 
-python3 evolve_params_3.py evolve_params_3 0 && .new\ params
+    python3 evolve_params_3.py evolve_params_3 0 && .new\ params
 
 This is all you need to put in. The following is an explnation of what the function executes automatically.
 The function takes the highest scoring parameters from the last 40 simualations (logged in EA.log next to their score), evolves them according to the algorithm laid out in the paper (and the script itself) to make a set of 40 new parameters. It then runs these 40 simulations (can be time consuming). Increments the number of 'generations' by 1, then repeats the process again. e.g. the second run will be:
 
 python3 evolve_params_3.py evolve_params_3 1 && .new\ params
-....
+
 it will keep going until it executes
+
 python3 evolve_params_3.py evolve_params_3 20 && .new\ params     (the number of generations -default=20, can be changed in the code)
 
 or reaches a given performance metric. At this point it executes the replicate_3 function. This function pulls out the 10 best performing parameter combinations over all of the generations (out of 40 * 20 = 800), and repeats each one 3 times, recording the scores to a new file.
@@ -74,32 +75,32 @@ This script generates the positions for a given number of robots. It can be call
 
     python3 gen_array.py gen_array 30
 
-    "gen_array" generates a square of Kilobots to the size of the largest square number that is smaller than the argument given. Here, it will generate a square of 25 Kilobots in the 'array.txt' file, ready for copying into the .world file
+"gen_array" generates a square of Kilobots to the size of the largest square number that is smaller than the argument given. Here, it will generate a square of 25 Kilobots in the 'array.txt' file, ready for copying into the .world file
 
     python3 gen_array.py gen_line 20
 
-    "gen_line" generates a line of kilobots separated by 5mm (this can be changed in the script) and outputs this to the 'line.txt' file. The code is currently set up to draw 3 vertical lines of Kilobots, this can be changed quite easily by editing the python script.
+"gen_line" generates a line of kilobots separated by 5mm (this can be changed in the script) and outputs this to the 'line.txt' file. The code is currently set up to draw 3 vertical lines of Kilobots, this can be changed quite easily by editing the python script.
 
     python3 gen_array.py gen_ring 64 3
 
-    This was the code used in all reported experiments. This example generates 64 robots evenly spaced in a ring at a radius of 3 and writes this to the 'ring.txt' file
+This was the code used in all reported experiments. This example generates 64 robots evenly spaced in a ring at a radius of 3 and writes this to the 'ring.txt' file
 
 This script generates the environment for the Kilobots
 
     python3 generate_concentric_emmental.py concentric 10
-    Generates 10 concentric rings with linearly increasing radii from 0.2 - 0.9m.
+Generates 10 concentric rings with linearly increasing radii from 0.2 - 0.9m.
 
     python3 generate_concentric_emmental.py concentric_size 10
-    Generates 10 concentric rings with a linearly increasing area
+Generates 10 concentric rings with a linearly increasing area
 
     python3 generate_concentric_emmental.py emmental 10 0.1 0.05
-    This is to ismulate an environment with patches of dangerous regions. This code generates 10 randomly placed circles of radius 0.1 and chance of dying 5% with each clock tick.
+This is to ismulate an environment with patches of dangerous regions. This code generates 10 randomly placed circles of radius 0.1 and chance of dying 5% with each clock tick.
 
     python3 generate_concentric_emmental.py grid_world 10
-    Generates a 10x10 patchwork grid-world. the boundaries are necessarilly different in this geometry, as there are now 2 gradients. In order to do this there are 5 colours 'projected', and the kilobots can deduce which direction they are moving in by how much the modulo of the number associated with their region changes. e.g. and even number change means they are travelling horizontally, and positive means it is to the right.
+Generates a 10x10 patchwork grid-world. the boundaries are necessarilly different in this geometry, as there are now 2 gradients. In order to do this there are 5 colours 'projected', and the kilobots can deduce which direction they are moving in by how much the modulo of the number associated with their region changes. e.g. and even number change means they are travelling horizontally, and positive means it is to the right.
 
     python3 generate_concentric_emmental.py pipe 10
-    Generates a thin environment where the kilobots cannot move around each other. The '10' variable determines how frequent the regions change, and so how accurately the kilobots know their position.
+Generates a thin environment where the kilobots cannot move around each other. The '10' variable determines how frequent the regions change, and so how accurately the kilobots know their position.
 
 ----------------------------------------------------- 
 
