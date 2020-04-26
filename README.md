@@ -24,7 +24,8 @@ This example evolves the behaviour of a 64 kilobot swarm in a concentric ring wo
     make
 
 where {0} - {2} are the parameters, it makes sense to have these linearly spaced over the space you expect the optimal values to lie in, and {3} can be anything really. It's a random seed, and is only present so that if a particular simulation is giving an odd result, it can be re-run. The central (score-keeping) kilobot keeps a log each time in the beacon.log file. This is used as a simple scoring mechanism and the first part of the gen_kiloscript_3 function writes the final score, along with the variables and random seed into the EA.log file (on a single line).
-To watch the simulation, remove the "g", but this slows down the simulation, and removes the automatic cut-off point, so is not advised if you are collecting data.
+To watch the simulation, remove the "-g", but this slows down the simulation, and removes the automatic cut-off point, so is not advised if you are collecting data.
+You can also keep a log of the simulation by adding --args="log test.log" or similar. You will have to do this if you want to analyse the data more carefully than just looking at the score. The scorekeeping/beacon log is always on, unless you change the python script.
 
 3. Now that there are 40 bits of data to use, we can let the script automatically evolve and produce graphs etc.
 
