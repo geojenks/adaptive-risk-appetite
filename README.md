@@ -11,6 +11,14 @@ due to incompatability
 --------------------------------------------------
 Copy/clone contents into the kilobox directory
 
+For an individual simulation, you can run something like
+
+./Testbed/Testbed ../kilobox/worlds/concentric\ for\ destination\ choice\ 64.world
+
+from the kilobox directory. The example world (concentric for desination choice 64.world) can itself be edited, or the file replaced with a new one. You will have to run the 'make' command again after any new controllers are coded for (e.g. in the evokilo.cpp file).
+
+---------------------------------------------------
+
 The individual files work complementarilly. The main script acts recursively on itself until a given number of generations are complete.
 
 This example evolves the behaviour of a 64 kilobot swarm in a concentric ring world, other worlds or behaviours can easilly be substituted in. The basic usage involves:
